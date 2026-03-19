@@ -17,26 +17,26 @@ public struct GlowingView<Content: View>: View {
     @State private var glowOpacity: Double = Constants.maxGlowOpacity
     @State private var contentOpacity: Double = Constants.maxContentOpacity
     
-    private let content: () -> Content
+    private let content: Content
     private let animated: Bool
   
     // MARK: init
     
-    public init(animated: Bool, content: @escaping () -> Content) {
+    public init(animated: Bool, @ViewBuilder content: () -> Content) {
         self.animated = animated
-        self.content = content
+        self.content = content()
     }
   
     // MARK: view
     
     public var body: some View {
         ZStack {
-            content()
+            content
                 .blur(radius: 5)
                 .opacity(glowOpacity)
                 .transition(.opacity)
             
-            content()
+            content
                 .opacity(contentOpacity)
                 .transition(.opacity)
         }

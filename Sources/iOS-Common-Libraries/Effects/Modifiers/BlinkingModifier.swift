@@ -16,12 +16,12 @@ public struct BlinkingView<Content: View>: View {
     
     @State private var blink: Bool = false
     
-    private let content: () -> Content
+    @ViewBuilder private let content: Content
   
     // MARK: init
     
-    public init(content: @escaping () -> Content) {
-        self.content = content
+    public init(@ViewBuilder content: () -> Content) {
+        self.content = content()
     }
   
     // MARK: view
@@ -30,7 +30,7 @@ public struct BlinkingView<Content: View>: View {
      Yes, there's a deprecated API warning. But the non-deprecated API doesn't animate correctly.
      */
     public var body: some View {
-        content()
+        content
             .opacity(blink ? Constants.maxBlinkOpacity : Constants.minBlinkOpacity)
             .scaleEffect(blink ? Constants.maxBlinkScale : Constants.minBlinkScale)
             .animation(Animation.linear(duration: Constants.duration).repeatForever(autoreverses: true), value: blink)

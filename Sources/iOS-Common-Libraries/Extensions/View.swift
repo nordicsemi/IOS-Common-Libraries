@@ -146,7 +146,9 @@ public extension View {
 
 // MARK: - dynamicColor()
 
+#if os(iOS) || targetEnvironment(macCatalyst)
 extension UIColor {
+    
     static func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { trait in
@@ -157,6 +159,7 @@ extension UIColor {
         }
     }
 }
+#endif
 
 // MARK: - doOnce()
 

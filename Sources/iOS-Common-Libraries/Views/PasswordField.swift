@@ -10,6 +10,7 @@ import SwiftUI
 
 // MARK: - PasswordField
 
+@available(iOS 14.0, macCatalyst 14.0, macOS 11.0, *)
 public struct PasswordField: View {
     
     // MARK: Private Properties
@@ -51,22 +52,3 @@ public struct PasswordField: View {
         }
     }
 }
-
-// MARK: - Preview
-
-#if DEBUG
-struct PasswordField_Previews: PreviewProvider {
-    
-    @State static var emptyPassword: String = ""
-    @State static var password: String = "#LookWhatYouMadeMeDo"
-    
-    static var previews: some View {
-        Group {
-            PasswordField(binding: $emptyPassword, enabled: true)
-            PasswordField(binding: $password, enabled: true)
-            PasswordField(binding: $password, enabled: false)
-        }
-        .previewLayout(.sizeThatFits)
-    }
-}
-#endif

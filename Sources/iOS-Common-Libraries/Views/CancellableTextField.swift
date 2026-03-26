@@ -96,10 +96,10 @@ public struct CancellableTextField: View {
                     .padding(4)
                 }
             }
-            #if targetEnvironment(macCatalyst)
+            #if os(iOS) || targetEnvironment(macCatalyst)
             .background(Color(.systemGray6))
             #else
-            .background(Color(.systemGroupedBackground))
+            .background(Color(.controlBackgroundColor))
             #endif
             .cornerRadius(8)
             

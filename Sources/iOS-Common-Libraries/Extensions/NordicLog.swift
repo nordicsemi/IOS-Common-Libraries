@@ -127,7 +127,7 @@ public extension NordicLog {
 
     @inline(__always) private func mxEvent(name: StaticString, line: String) {
         #if os(iOS) || targetEnvironment(macCatalyst)
-        mxSignpost(.event, log: mxLog, name: name, signpostID: OSSignpostID(log: mxLog), "%{PUBLIC}@", [line])
+        // mxSignpost(.event, log: mxLog, name: name, signpostID: OSSignpostID(log: mxLog), "%{PUBLIC}@", [line])
         #endif
     }
     
@@ -140,12 +140,12 @@ public extension NordicLog {
                 os_signpost(.begin, log: poiLog, name: name, signpostID: signpostId)
             }
             #if os(iOS) || targetEnvironment(macCatalyst)
-            mxSignpost(.begin, log: mxLog, name: name, signpostID: signpostId)
+            // mxSignpost(.begin, log: mxLog, name: name, signpostID: signpostId)
             #endif
         } else {
             os_signpost(.begin, log: poiLog, name: name)
             #if os(iOS) || targetEnvironment(macCatalyst)
-            mxSignpost(.begin, log: mxLog, name: name)
+            // mxSignpost(.begin, log: mxLog, name: name)
             #endif
         }
     }
@@ -159,12 +159,12 @@ public extension NordicLog {
                 os_signpost(.end, log: poiLog, name: name, signpostID: signpostId)
             }
             #if os(iOS) || targetEnvironment(macCatalyst)
-            mxSignpost(.end, log: mxLog, name: name, signpostID: signpostId)
+            // mxSignpost(.end, log: mxLog, name: name, signpostID: signpostId)
             #endif
         } else {
             os_signpost(.end, log: poiLog, name: name)
             #if os(iOS) || targetEnvironment(macCatalyst)
-            mxSignpost(.end, log: mxLog, name: name)
+            // mxSignpost(.end, log: mxLog, name: name)
             #endif
         }
     }

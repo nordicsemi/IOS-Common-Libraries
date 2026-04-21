@@ -12,7 +12,7 @@ import UIKit
 
 // MARK: - Haptic
 
-struct Haptic {
+public struct Haptic {
 
     // MARK: private init
 
@@ -20,7 +20,7 @@ struct Haptic {
     
     // MARK: Feedback
     
-    enum Feedback {
+    public enum Feedback {
         case error
         case success
         case selectionChanged
@@ -56,7 +56,7 @@ struct Haptic {
     // MARK: generate
     
     nonisolated
-    static func generate(feedbackFor feedback: Haptic.Feedback) {
+    public static func generate(feedbackFor feedback: Haptic.Feedback) {
         Task { @MainActor in
             feedback()
         }

@@ -91,13 +91,13 @@ Additionally, there are helper items here. We have `struct RGB` and `RGBA` struc
 - `Cache`: Need to use `NSCache` with a pure-Swift `struct`? This is what this is for. Also, it's just John Sundell's work in a library that we use.
 - `BitField`: Alternative to an `enum` `Set` that allows us to store everything in a single CPU Register, both in memory and as a `Codable`.
 - `NordicLog`: Apple added `OSLog` as the [performance-oriented logging API](https://developer.apple.com/documentation/os/oslog) for their platforms back in 2018. We've since adopted it in nRF Connect for Mobile, and extended its use accross all apps. And what we found is that, we kept re-implementing the same set of APIs for logging everywhere. So we picked one implementation, and moved it here so that we can use it everywhere. Additionally, it supports not only OSLog APIs but also [performance-logging APIs](https://developer.apple.com/documentation/os/logging/recording_performance_data), allowing us to measure calls for performance.
+- `Haptic`: Also a long time ago, haptic feedback was a thing. So we wrote wrapper APIs to make it easier to use. We even forgot about them! To a point, of course. Then we decided it was a good time to perhaps clean it up and, port it [over here](Sources/iOS-Common-Libraries/Utilities/Haptic.swift).
 
 ### Extensions
 
 - `Data`: There are helper functions here to handle bytes within a `Data` blob. This is code used by [nRF Connect for Mobile](https://apps.apple.com/es/app/nrf-connect-for-mobile/id1054362403) to read individual bytes from advertised BLE `Data`. The are functions to format `Data` as `String` as well.
 - `CGSize`: How is it that there's no Public API to initialise a size as a square!?
 - `Compression`: A long time ago, back in 2020, we wrote code to Compress/Decompress blobs of Data. This was a major benefit for nRF Connect for Mobile, which regularly saves its state via JSON Encode/Decode to disk. This allows for persistent User Settings, as well as the app "remembering" where the user was irrespective of if the app is killed in the background or not. Unfortunately, two years later, undergoing some testing a crucial API call for compression was removed. We found it thinking it was code that was not used and needing to be deleted, then wondered 'why isn't this being used?' and the answer was, a bad copy/paste back of previous code gone wrong. So nRF Connect for Mobile is back to using it, providing great benefits to [solid state endurance](https://arstechnica.com/information-technology/2012/06/inside-the-ssd-revolution-how-solid-state-disks-really-work/) to our customers. Hence, why it belongs here.
-- `Haptic`: Also a long time ago, haptic feedback was a thing. So we wrote wrapper APIs to make it easier to use. We even forgot about them! To a point, of course. Then we decided it was a good time to perhaps clean it up and, port it [over here](Sources/iOS-Common-Libraries/Utilities/Haptic.swift).
 
 ## In Use By
 

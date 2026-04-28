@@ -90,9 +90,13 @@ public extension Network {
                         #if DEBUG
                         logDebug("\(request): \(responseDataAsString)")
                         #endif
-                        throw URLError(.cannotParseResponse)
+                        throw URLError(.unknown, userInfo: [
+                            "httpStatusCode": httpResponse.statusCode,
+                            "httpResponse": HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode),
+                            "response": responseDataAsString
+                        ])
                     } else {
-                        throw URLError(.badServerResponse)
+                        throw URLError(.cannotParseResponse)
                     }
                 }
             }

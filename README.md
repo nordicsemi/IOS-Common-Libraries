@@ -6,8 +6,9 @@
 
 ![Swift](https://img.shields.io/badge/Swift-5.6-f05237.svg)
 ![Platforms](https://img.shields.io/badge/Platforms-iOS%20|%20iPadOS%20|%20macOS-333333.svg)
-[![License](https://img.shields.io/github/license/NordicPlayground/IOS-Common-Libraries)](https://github.com/NordicPlayground/IOS-Common-Libraries/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/nordicsemi/IOS-Common-Libraries)](https://github.com/nordicsemi/IOS-Common-Libraries/blob/main/LICENSE)
 [![Swift Package Manager](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen)](https://swift.org/package-manager/)
+[![Release](https://img.shields.io/github/release/nordicsemi/IOS-Common-Libraries.svg)](https://github.com/nordicsemi/IOS-Common-Libraries/releases)
 
 This is a Swift Package containing Swift code and Utilities/Assets, such as Colors, used by Nordic's iOS/Mac apps.
 

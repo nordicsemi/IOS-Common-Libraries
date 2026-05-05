@@ -14,26 +14,21 @@ import SwiftUI
 @available(iOS 16.0, macCatalyst 16.0, macOS 13.0, *)
 public struct InlinePicker<T: Hashable & Equatable>: View {
     
-    public typealias OnChange = (T) -> Void
-    
     // MARK: Properties
     
     private let title: String
     private let systemImage: String?
     private let selectedValue: Binding<T>
     private let possibleValues: [T]
-    // TODO: Remove onChange because it breaks SwiftUI comparison, causing it to make unnecessary layouts when nothing else has changed.
-    private let onChange: OnChange?
     
     // MARK: Init
     
     public init(title: String, systemImage: String? = nil, selectedValue: Binding<T>,
-                possibleValues: [T], onChange: OnChange? = nil) {
+                possibleValues: [T]) {
         self.title = title
         self.systemImage = systemImage
         self.selectedValue = selectedValue
         self.possibleValues = possibleValues
-        self.onChange = onChange
     }
     
     // MARK: View
@@ -46,9 +41,6 @@ public struct InlinePicker<T: Hashable & Equatable>: View {
                         .tag(value)
                 }
             }
-            .onChange(of: selectedValue.wrappedValue, perform: { newValue in
-                onChange?(newValue)
-            })
             .pickerStyle(.menu)
         } label: {
             if let systemImage {
@@ -65,9 +57,8 @@ public struct InlinePicker<T: Hashable & Equatable>: View {
 @available(iOS 16.0, macCatalyst 16.0, macOS 13.0, *)
 public extension InlinePicker where T: CaseIterable, T.AllCases == [T] {
     
-    init(title: String, systemImage: String? = nil, selectedValue: Binding<T>, 
-         onChange: InlinePicker.OnChange? = nil) {
+    init(title: String, systemImage: String? = nil, selectedValue: Binding<T>) {
         self.init(title: title, systemImage: systemImage, selectedValue: selectedValue,
-                  possibleValues: T.allCases, onChange: onChange)
+                  possibleValues: T.allCases)
     }
 }

@@ -22,6 +22,7 @@ public struct InlinePicker<T: Hashable & Equatable>: View {
     private let systemImage: String?
     private let selectedValue: Binding<T>
     private let possibleValues: [T]
+    // TODO: Remove onChange because it breaks SwiftUI comparison, causing it to make unnecessary layouts when nothing else has changed.
     private let onChange: OnChange?
     
     // MARK: Init

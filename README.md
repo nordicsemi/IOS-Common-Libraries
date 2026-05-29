@@ -96,6 +96,8 @@ Additionally, there are helper items here. We have `struct RGB` and `RGBA` struc
 
 ### Extensions
 
+- `UIStackView`: There are two static functions to set up a stackview in either column format or rows. It's mostly boilerplate code that took some effort to set up in nRF Connect for the first time, but after that, it just worked.
+- `AutoLayout`: A couple of functions to avoid having to set [translatesAutoResizingMasksIntoConstraints to false](https://developer.apple.com/documentation/uikit/uiview/translatesautoresizingmaskintoconstraints) every single time. As well as some obvious helpers to set constraints to the [safe areas](https://developer.apple.com/documentation/uikit/uiview/safearealayoutguide).
 - `Data`: There are helper functions here to handle bytes within a `Data` blob. This is code used by [nRF Connect for Mobile](https://apps.apple.com/es/app/nrf-connect-for-mobile/id1054362403) to read individual bytes from advertised BLE `Data`. The are functions to format `Data` as `String` as well.
 - `CGSize`: How is it that there's no Public API to initialise a size as a square!?
 - `Compression`: A long time ago, back in 2020, we wrote code to Compress/Decompress blobs of Data. This was a major benefit for nRF Connect for Mobile, which regularly saves its state via JSON Encode/Decode to disk. This allows for persistent User Settings, as well as the app "remembering" where the user was irrespective of if the app is killed in the background or not. Unfortunately, two years later, undergoing some testing a crucial API call for compression was removed. We found it thinking it was code that was not used and needing to be deleted, then wondered 'why isn't this being used?' and the answer was, a bad copy/paste back of previous code gone wrong. So nRF Connect for Mobile is back to using it, providing great benefits to [solid state endurance](https://arstechnica.com/information-technology/2012/06/inside-the-ssd-revolution-how-solid-state-disks-really-work/) to our customers. Hence, why it belongs here.
@@ -105,7 +107,7 @@ Additionally, there are helper items here. We have `struct RGB` and `RGBA` struc
 Here's a listing of the iOS/iPadOS/macOS Projects we at Nordic use this code in. Obviously since this is Open Source, you're free to use any of it as well. We're just highlighting here some of the products that have lead to the battle-testing of some of this code.
 
 - [x] `nRF Connect for Mobile`: [App Store](https://apps.apple.com/no/app/nrf-connect-for-mobile/id1054362403) [GitHub (not Open Source)](https://github.com/NordicSemiconductor/IOS-nRF-Connect)
+- [x] `nRF Toolbox`: [App Store](https://apps.apple.com/no/app/nrf-toolbox/id820906058) [GitHub](https://github.com/NordicSemiconductor/IOS-nRF-Toolbox)
+- [x] `nRF Connect Device Manager`: [App Store](https://apps.apple.com/us/app/nrf-connect-device-manager/id1519423539) [GitHub](https://github.com/nordicsemi/IOS-nRF-Connect-Device-Manager)
 - [x] `nRF Edge Impulse`: [App Store](https://apps.apple.com/no/app/nrf-edge-impulse/id1557234087?l=nb) [GitHub](https://github.com/NordicSemiconductor/IOS-nRF-Edge-Impulse)
 - [x] `nRF Wi-Fi Provisioner`: [App Store](https://apps.apple.com/no/app/nrf-wi-fi-provisioner/id1638948698?platform=iphone) [GitHub](https://github.com/NordicSemiconductor/IOS-nRF-Wi-Fi-Provisioner)
-- [x] `nRF Toolbox`: [App Store](https://apps.apple.com/no/app/nrf-toolbox/id820906058) [GitHub](https://github.com/NordicSemiconductor/IOS-nRF-Toolbox)
-- [x] `nRF Memfault`: [App Store](https://apps.apple.com/no/app/nrf-memfault/id1641119282) [GitHub](https://github.com/NordicSemiconductor/IOS-Memfault-Library)

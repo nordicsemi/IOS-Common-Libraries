@@ -20,7 +20,7 @@ public struct CancellableTextField: View {
     // MARK: Icon
     
     public enum Icon {
-        case search, text
+        case search, text, command
         
         var sfSymbolName: String {
             switch self {
@@ -28,6 +28,8 @@ public struct CancellableTextField: View {
                 return "magnifyingglass"
             case .text:
                 return "character.cursor.ibeam"
+            case .command:
+                return "greaterthan"
             }
         }
     }
@@ -39,7 +41,8 @@ public struct CancellableTextField: View {
     private let icon: Icon
     
     @Binding private var text: String
-    @State private var isEditing: Bool
+    @State private var isEditing: Bool = false
+    
     @FocusState private var isTextFieldInFocus: Bool
     
     // MARK: Init
@@ -49,7 +52,6 @@ public struct CancellableTextField: View {
         self.cancelText = cancelText
         self.icon = icon
         self._text = text
-        self.isEditing = false
     }
     
     // MARK: body
@@ -80,7 +82,7 @@ public struct CancellableTextField: View {
                 }
                 
                 if isEditing {
-                    Button {
+                    Button(role: .destructive) {
                         withAnimation {
                             self.text = ""
                             // Button action will make TextField lose focus via SwiftUI,
@@ -89,7 +91,7 @@ public struct CancellableTextField: View {
                         }
                     } label: {
                         Image(systemName: "multiply.circle.fill")
-                            .foregroundColor(.nordicMiddleGrey)
+                            .renderingMode(.template)
                     }
                     .buttonStyle(.borderless)
                     .frame(width: 44)
@@ -116,7 +118,10 @@ public struct CancellableTextField: View {
                 .tint(.universalAccentColor)
                 .buttonStyle(.borderless)
                 .padding(4)
-                .transition(.move(edge: .trailing))
+                .transition(
+                    .move(edge: .trailing)
+                    .combined(with: .opacity)
+                )
             }
         }
     }

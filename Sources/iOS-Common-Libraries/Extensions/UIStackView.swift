@@ -8,6 +8,7 @@
 //  Copyright © 2026 Nordic Semiconductor. All rights reserved.
 //
 
+#if os(iOS) || targetEnvironment(macCatalyst)
 import UIKit
 
 // MARK: - UIStackView
@@ -40,3 +41,4 @@ public extension UIStackView {
         return stackView
     }
 }
+#endif

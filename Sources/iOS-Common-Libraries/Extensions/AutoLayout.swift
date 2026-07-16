@@ -8,6 +8,7 @@
 //  Copyright © 2026 Nordic Semiconductor. All rights reserved.
 //
 
+#if os(iOS) || targetEnvironment(macCatalyst)
 import UIKit
 
 // MARK: - Safe Anchor(s)
@@ -55,6 +56,9 @@ public extension UIView {
         }
     }
 }
+#else
+import AppKit
+#endif
 
 // MARK: - Sequence
 

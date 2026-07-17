@@ -23,4 +23,10 @@ public struct NetworkResponse {
         self.code = code
         self.data = data
     }
+    
+    // MARK: API
+    
+    public var isOK: Bool {
+        200..<300 ~= code
+    }
 }

@@ -204,4 +204,21 @@ public struct BasicHTTPResponse: HTTPResponse, LocalizedError {
     public var errorDescription: String? { error }
     public var recoverySuggestion: String? { error }
     public var helpAnchor: String? { "Try Postman or ask Roshee for help." }
+    
+    // MARK: init
+    
+    public init(success: Bool, error: String?) {
+        self.success = success
+        self.error = error
+    }
+    
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let errorValue = try container.decodeIfPresent(String.self, forKey: .error)
+        let decodedSuccessValue = try? container.decode(Bool.self, forKey: .success)
+        let successValue: Bool = decodedSuccessValue ?? (errorValue == nil)
+ 
+        self.init(success: successValue, error: errorValue)
+    }
 }

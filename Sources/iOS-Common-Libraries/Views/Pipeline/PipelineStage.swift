@@ -25,29 +25,41 @@ public protocol PipelineStage: Identifiable, Hashable, CaseIterable {
     var encounteredAnError: Bool { get set }
 }
 
+// MARK: Extension
+
 public extension PipelineStage {
     
+    // MARK: id
+    
     var id: String { todoStatus }
+    
+    // MARK: status
     
     var status: String {
         guard !completed else { return completedStatus }
         return inProgress || encounteredAnError ? inProgressStatus : todoStatus
     }
     
+    // MARK: color
+    
     var color: Color {
         if completed {
             return .succcessfulActionButtonColor
         } else if encounteredAnError {
-            return .nordicRed
+            return .red
         } else if inProgress {
             return .nordicSun
         }
         return .disabledTextColor
     }
     
+    // MARK: isIndeterminate
+    
     var isIndeterminate: Bool {
         totalProgress <= .leastNonzeroMagnitude
     }
+    
+    // MARK: update(inProgress:progressValue:)
     
     mutating func update(inProgress: Bool = false, progressValue: Float? = nil) {
         self.encounteredAnError = false
@@ -58,11 +70,15 @@ public extension PipelineStage {
         self.completed = false
     }
     
+    // MARK: complete()
+    
     mutating func complete() {
         self.inProgress = false
         self.progress = totalProgress
         self.completed = true
     }
+    
+    // MARK: declareError()
     
     mutating func declareError() {
         guard inProgress else { return }

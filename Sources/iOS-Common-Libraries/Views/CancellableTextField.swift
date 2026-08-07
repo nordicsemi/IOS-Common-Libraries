@@ -45,7 +45,7 @@ public struct CancellableTextField: View {
     
     @FocusState private var isTextFieldInFocus: Bool
     
-    // MARK: Init
+    // MARK: init
     
     public init(_ emptyText: String, cancelText: String, icon: Icon, text: Binding<String>) {
         self.emptyText = emptyText
@@ -54,13 +54,13 @@ public struct CancellableTextField: View {
         self._text = text
     }
     
-    // MARK: body
+    // MARK: view
     
     public var body: some View {
         HStack {
             HStack {
                 Image(systemName: icon.sfSymbolName)
-                    .foregroundColor(.nordicMiddleGrey)
+                    .foregroundColor(.secondary)
                     .padding(.leading, 8)
                 
                 // onEditingChanged's parameter returns whether TextField is in focus or not
@@ -99,7 +99,7 @@ public struct CancellableTextField: View {
                 }
             }
             #if os(iOS) || targetEnvironment(macCatalyst)
-            .background(Color(.systemGray6))
+            .background(Color(.systemGroupedBackground))
             #else
             .background(Color(.controlBackgroundColor))
             #endif

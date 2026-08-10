@@ -8,6 +8,7 @@
 //  Copyright © 2026 Nordic Semiconductor. All rights reserved.
 //
 
+#if os(iOS) || targetEnvironment(macCatalyst)
 import UIKit
 
 // MARK: - Safe Anchor(s)
@@ -68,3 +69,4 @@ public extension Sequence where Element == NSLayoutConstraint {
         forEach { $0.isActive = false }
     }
 }
+#endif

@@ -72,3 +72,4 @@ public extension Sequence where Element == NSLayoutConstraint {
         forEach { $0.isActive = false }
     }
 }
+#endif

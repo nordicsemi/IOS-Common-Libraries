@@ -85,6 +85,7 @@ public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible,
             }
             return String(intValue)
         case .boolean:
+            guard item.hasItems else { return nil }
             let intValue = item.littleEndianBytes(as: Int8.self)
             let bool = intValue > 0
             return bool ? "True" : "False"

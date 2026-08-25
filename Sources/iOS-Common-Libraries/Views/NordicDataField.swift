@@ -63,6 +63,9 @@ public struct NordicDataField: View {
                     .cornerRadius(8)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
+                    #if os(iOS)
+                    .keyboardType(.asciiCapable)
+                    #endif
                     .onChange(of: dataString) { newString in
                         updateData()
                     }
@@ -73,11 +76,20 @@ public struct NordicDataField: View {
                 .foregroundStyle(.secondary)
                 .font(.footnote)
             
-            InlineSegmentedControlPicker(selectedValue: $selectedParser, possibleValues: dataParsers)
-                .disabled(!dataParserPickerEnabled)
-                .onChange(of: selectedParser) { _ in
-                    updateData()
+
+            Divider()
+            
+            Picker("Format", selection: $selectedParser) {
+                ForEach(dataParsers, id: \.self) { value in
+                    Text(value.description)
+                        .tag(value)
                 }
+            }
+            .pickerStyle(.menu)
+            .disabled(!dataParserPickerEnabled)
+            .onChange(of: selectedParser) { _ in
+                updateData()
+            }
         }
         .padding(.vertical, 2.0)
     }

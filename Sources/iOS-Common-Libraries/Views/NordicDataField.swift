@@ -100,7 +100,7 @@ public struct NordicDataField: View {
         switch selectedParser {
         case .byteArray:
             data = Data(hexString: dataString) ?? Data()
-        case .unsignedInt:
+        case .anyUnsignedInt:
             guard let number = UInt8(dataString) else { return }
             data = Data(repeating: number, count: 1)
         case .boolean:

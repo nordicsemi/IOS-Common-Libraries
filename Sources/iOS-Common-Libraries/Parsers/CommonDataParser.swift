@@ -12,8 +12,8 @@ import Foundation
 
 public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible, NordicDataParser {
     case byteArray
-    case unsignedInt
-    case signedInt
+    case anyUnsignedInt
+    case anySignedInt
     case boolean
     case utf8
     
@@ -23,10 +23,10 @@ public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible,
         switch self {
         case .byteArray:
             return "Byte Array"
-        case .unsignedInt:
-            return "Unsigned Int"
-        case .signedInt:
-            return "Signed Int"
+        case .anyUnsignedInt:
+            return "Unsigned Int (8, 16 or 32)"
+        case .anySignedInt:
+            return "Signed Int (8, 16 or 32)"
         case .boolean:
             return "Boolean"
         case .utf8:
@@ -40,9 +40,9 @@ public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible,
         switch self {
         case .byteArray:
             return .atLeast(MemoryLayout<UInt8>.size)
-        case .unsignedInt:
+        case .anyUnsignedInt:
             return .anyOf([MemoryLayout<UInt8>.size, MemoryLayout<UInt16>.size, MemoryLayout<UInt32>.size])
-        case .signedInt:
+        case .anySignedInt:
             return .anyOf([MemoryLayout<Int8>.size, MemoryLayout<Int16>.size, MemoryLayout<Int32>.size])
         case .boolean:
             return .exactly(MemoryLayout<Int8>.size)
@@ -58,7 +58,7 @@ public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible,
         case .byteArray:
             guard !item.isEmpty else { return "" }
             return item.hexEncodedString(options: [.twoByteSpacing, .upperCase])
-        case .unsignedInt:
+        case .anyUnsignedInt:
             let intValue: Int
             switch item.count {
             case MemoryLayout<UInt8>.size:
@@ -71,7 +71,7 @@ public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible,
                 return nil
             }
             return String(intValue)
-        case .signedInt:
+        case .anySignedInt:
             let intValue: Int
             switch item.count {
             case MemoryLayout<Int8>.size:

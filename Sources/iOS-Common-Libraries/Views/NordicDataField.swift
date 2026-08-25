@@ -71,7 +71,7 @@ public struct NordicDataField: View {
                     }
             }
             
-            Text("Preview: \(data.isEmpty ? "N/A" : data.hexEncodedString(options: [.prepend0x, .upperCase]))")
+            Text("\(data.isEmpty ? "N/A" : data.hexEncodedString(options: [.prepend0x, .upperCase]))")
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundStyle(.secondary)
                 .font(.footnote)
@@ -79,13 +79,17 @@ public struct NordicDataField: View {
 
             Divider()
             
-            Picker("Format", selection: $selectedParser) {
+            Picker(selection: $selectedParser, content: {
                 ForEach(dataParsers, id: \.self) { value in
                     Text(value.description)
                         .tag(value)
                 }
-            }
+            }, label: {
+                EmptyView()
+            })
             .pickerStyle(.menu)
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .lineLimit(1)
             .disabled(!dataParserPickerEnabled)
             .onChange(of: selectedParser) { _ in
                 updateData()
@@ -98,17 +102,10 @@ public struct NordicDataField: View {
     
     private func updateData() {
         switch selectedParser {
-        case .byteArray:
-            data = Data(hexString: dataString) ?? Data()
-        case .anyUnsignedInt:
-            guard let number = UInt8(dataString) else { return }
-            data = Data(repeating: number, count: 1)
         case .boolean:
             data = Data(repeating: dataBool ? 1 : 0, count: 1)
-        case .utf8:
-            data = dataString.data(using: .utf8) ?? Data()
         default:
-            return
+            data = selectedParser.parse(dataString) ?? Data()
         }
     }
 }

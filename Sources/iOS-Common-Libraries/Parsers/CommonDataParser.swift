@@ -135,6 +135,7 @@ public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible,
     // MARK: callAsFunction
     
     public func callAsFunction(_ item: Data) -> String? {
+        guard isValid(item) else { return nil }
         switch self {
         case .byteArray:
             guard !item.isEmpty else { return "" }

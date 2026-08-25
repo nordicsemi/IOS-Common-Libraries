@@ -52,9 +52,9 @@ public struct NordicDataField: View {
     public var body: some View {
         VStack {
             if selectedParser == .boolean {
-                Toggle(dataBool ? "True (0x1)" : "False (0x0)", isOn: $dataBool)
+                Toggle(dataBool ? "True" : "False", isOn: $dataBool)
                     .onChange(of: dataBool) { newValue in
-                        data = Data(repeating: newValue ? 1 : 0, count: 1)
+                        updateData()
                     }
             } else {
                 TextField("", text: $dataString)
@@ -64,26 +64,39 @@ public struct NordicDataField: View {
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
                     .onChange(of: dataString) { newString in
-                        switch selectedParser {
-                        case .byteArray:
-                            data = Data(hexString: newString) ?? Data()
-                        case .unsignedInt:
-                            guard let number = UInt8(newString) else { return }
-                            data = Data(repeating: number, count: 1)
-                        case .boolean:
-                            // No-op, because the Toggle should be visible.
-                            data = Data()
-                        case .utf8:
-                            data = newString.data(using: .utf8) ?? Data()
-                        default:
-                            return
-                        }
+                        updateData()
                     }
             }
             
+            Text("Preview: \(data.isEmpty ? "N/A" : data.hexEncodedString(options: [.prepend0x, .upperCase]))")
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .foregroundStyle(.secondary)
+                .font(.footnote)
+            
             InlineSegmentedControlPicker(selectedValue: $selectedParser, possibleValues: dataParsers)
                 .disabled(!dataParserPickerEnabled)
+                .onChange(of: selectedParser) { _ in
+                    updateData()
+                }
         }
         .padding(.vertical, 2.0)
+    }
+    
+    // MARK: updateData(from:)
+    
+    private func updateData() {
+        switch selectedParser {
+        case .byteArray:
+            data = Data(hexString: dataString) ?? Data()
+        case .unsignedInt:
+            guard let number = UInt8(dataString) else { return }
+            data = Data(repeating: number, count: 1)
+        case .boolean:
+            data = Data(repeating: dataBool ? 1 : 0, count: 1)
+        case .utf8:
+            data = dataString.data(using: .utf8) ?? Data()
+        default:
+            return
+        }
     }
 }

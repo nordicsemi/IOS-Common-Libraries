@@ -191,7 +191,7 @@ public enum CommonDataParser: String, RawRepresentable, CustomStringConvertible,
 
 // MARK: - FixedWidthInteger
 
-internal extension FixedWidthInteger {
+public extension FixedWidthInteger {
     
     var littleEndianBytes: [UInt8] {
         withUnsafeBytes(of: littleEndian, Array.init)

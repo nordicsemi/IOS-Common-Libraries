@@ -15,10 +15,11 @@ public extension HTTPRequest {
     
     // MARK: - Init
     
-    init?(scheme: HTTPScheme = .https, host: String, path: String, parameters: [String: String]? = nil) {
+    init?(scheme: HTTPScheme = .https, host: String, port: Int? = nil, path: String, parameters: [String: String]? = nil) {
         var components = URLComponents()
         components.scheme = scheme.rawValue
         components.host = host
+        components.port = port
         components.path = path
         components.queryItems = parameters?.map { key, value in
             URLQueryItem(name: key, value: value)

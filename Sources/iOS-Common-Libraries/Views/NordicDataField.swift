@@ -18,7 +18,7 @@ public struct NordicDataField: View {
     #if os(iOS) || targetEnvironment(macCatalyst)
     public static let DefaultBackgroundColor: Color = Color(.systemGray6)
     #else
-    public static let DefaultBackgroundColor: Color.secondarySystemBackground
+    public static let DefaultBackgroundColor: Color = .secondarySystemBackground
     #endif
     
     // MARK: Properties
@@ -62,8 +62,8 @@ public struct NordicDataField: View {
                     .background(backgroundColor)
                     .cornerRadius(8)
                     .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
                     #if os(iOS)
+                    .textInputAutocapitalization(.never)
                     .keyboardType(.asciiCapable)
                     #endif
                     .onChange(of: dataString) { newString in
